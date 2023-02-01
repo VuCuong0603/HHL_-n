@@ -5,6 +5,7 @@ import CheckoutItems from "../../components/checkout/items";
 import { RootState } from "store";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
+import { putOrderProductApi } from "../../utils/data/order/order";
 
 const CheckoutPage = () => {
   const router = useRouter();
@@ -18,16 +19,19 @@ const CheckoutPage = () => {
     return totalPrice;
   });
   const { user } = useSelector((state: RootState) => state.user);
+
   const thanhtoans = () => {
-    if (priceTotal == 0) {
-      toast.error("Giỏ hàng chưa có sản phẩm vui lòng chọn mua sản phẩm");
-    } else if (user == null) {
-      toast.error("Bạn cần đăng nhập để thanh toán");
-    } else {
-      try {
-        toast.success("Bạn đã thanh toán thành công");
-      } catch (error) {}
-    }
+    putOrderProductApi("63bbbe772a6a742d703d92ba", 1000, "0355685910", "home");
+    // if (priceTotal == 0) {
+    //   toast.error("Giỏ hàng chưa có sản phẩm vui lòng chọn mua sản phẩm");
+    // } else if (user == null) {
+    //   toast.error("Bạn cần đăng nhập để thanh toán");
+    // } else {
+    //   console.log("@@@");
+    //   try {
+    //     toast.success("Bạn đã thanh toán thành công");
+    //   } catch (error) {}
+    // }
   };
 
   return (
