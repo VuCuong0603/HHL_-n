@@ -6,36 +6,7 @@ import { getproductAPI } from "utils/data/products";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
-const ProductsContent = () => {
-  const router = useRouter();
-  const [data, setData] = useState([]);
-
-  const { aolen } = router.query;
-
-  const getData = async (aolen: any) => {
-    const res = await getproductAPI();
-    if (res) {
-      if (aolen) {
-        setData(() =>
-          res.result.products.filter((item: any) => item.categoryId === aolen)
-        );
-      } else {
-        setData(res.result.products);
-      }
-    }
-  };
-
-  useEffect(() => {
-    getData(aolen);
-  }, [aolen]);
-
-  useEffect(() => {
-    const a = data.filter((item: any) => item.categoryId === aolen);
-    console.log("a..", a);
-  }, [aolen]);
-
-  console.log("datadata..", data);
-
+const ProductsContent = ({ data }: any) => {
   if (data.length < 0) return <div>Failed to load users</div>;
 
   return (

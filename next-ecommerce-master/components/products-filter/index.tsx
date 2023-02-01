@@ -18,6 +18,8 @@ const ProductsFilter = () => {
 
   const router = useRouter();
 
+  const { type: typeParam, size: sizeParam } = router.query;
+
   const productsType = async () => {
     try {
       const res = await getcategoryAPI();
@@ -27,27 +29,40 @@ const ProductsFilter = () => {
       console.log(error);
     }
   };
-  const addQueryParams = () => {
-    // query params changes
-    console.log("aaaa");
-  };
+  const addQueryParams = () => {};
   useEffect(() => {
     productsType();
   }, []);
 
-  const changeParam = (type: any) => {
-    console.log("type..", type);
+  const changeTypeProduct = (type: any) => {
+    const newQuery = sizeParam
+      ? { type: type._id, size: sizeParam }
+      : { type: type._id };
+    console.log("222", type);
     router.push(
       {
         pathname: "/products/",
-        query: { aolen: type._id },
+        query: newQuery,
       },
       undefined,
       { shallow: true }
     );
   };
 
-  console.log("productsTypes..", productsTypes);
+  const changeSizeProduct = (type: any) => {
+    console.log("type..", type);
+    const newQuery = typeParam
+      ? { type: typeParam, size: type }
+      : { size: type };
+    router.push(
+      {
+        pathname: "/products/",
+        query: newQuery,
+      },
+      undefined,
+      { shallow: true }
+    );
+  };
 
   return (
     <form className="products-filter" onChange={addQueryParams}>
@@ -75,7 +90,7 @@ const ProductsFilter = () => {
                 name="product-type"
                 label={type.name}
                 type={type}
-                changeParam={changeParam}
+                changeParam={changeTypeProduct}
               />
             ))}
           </div>
@@ -101,14 +116,14 @@ const ProductsFilter = () => {
                 key={type.id}
                 name="product-size"
                 label={type.label}
-                changeParam={changeParam}
+                changeParam={changeSizeProduct}
               />
             ))}
           </div>
         </div>
 
         <div className="products-filter__block">
-          <button type="button">Màu</button>
+          <button type="button">Các Loại Màu</button>
           <div className="products-filter__block__content">
             <div className="checkbox-color-wrapper">
               {productsColors.map((type) => (

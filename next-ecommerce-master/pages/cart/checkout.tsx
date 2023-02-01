@@ -18,7 +18,6 @@ const CheckoutPage = () => {
     return totalPrice;
   });
   const { user } = useSelector((state: RootState) => state.user);
-  console.log(user);
   const thanhtoans = () => {
     if (priceTotal == 0) {
       toast.error("Giỏ hàng chưa có sản phẩm vui lòng chọn mua sản phẩm");

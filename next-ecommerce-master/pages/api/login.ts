@@ -8,7 +8,6 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
 
   if (email === "johndoe@mail.com" && password === "ecommerce") {
     res.status(200).json({ status: true });
-    console.log("res", res);
   } else {
     res.status(401).json({ status: false });
   }
