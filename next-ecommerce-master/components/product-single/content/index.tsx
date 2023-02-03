@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import productsColors from "./../../../utils/data/products-colors";
 import productsSizes from "./../../../utils/data/products-sizes";
 import CheckboxColor from "./../../products-filter/form-builder/checkbox-color";
@@ -19,7 +19,11 @@ const Content = ({ product }: ProductContent) => {
   const [color, setColor] = useState<string>("");
   const [itemSize, setItemSize] = useState<string>("");
 
-  const onColorSet = (e: string) => setColor(e);
+  const onColorSet = (e: string) => {
+    console.log("e", e);
+
+    setColor(e);
+  };
   const onSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) =>
     setItemSize(e.target.value);
 
@@ -59,6 +63,23 @@ const Content = ({ product }: ProductContent) => {
     );
   };
 
+  const data = product.quantity
+    ?.filter(
+      (value, index, self) =>
+        index === self.findIndex((t) => t.color === value.color)
+    )
+    .map((e) => {
+      return { label: e.color, color: e.color };
+    });
+  console.log("data", data);
+
+  const dataSize = React.useMemo(
+    () => product.quantity?.filter((value) => value.color.includes(color)),
+
+    [color]
+  );
+  console.log("dataSize", dataSize);
+
   return (
     <section className="product-content">
       <div className="product-content__intro">
@@ -75,7 +96,7 @@ const Content = ({ product }: ProductContent) => {
         <div className="product-filter-item">
           <h5>Color:</h5>
           <div className="checkbox-color-wrapper">
-            {productsColors.map((type) => (
+            {data?.map((type) => (
               <CheckboxColor
                 key={type.id}
                 type={"radio"}
