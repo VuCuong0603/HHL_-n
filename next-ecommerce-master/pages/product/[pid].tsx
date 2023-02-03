@@ -38,7 +38,6 @@ const Product = ({}) => {
   const [showBlock, setShowBlock] = useState("description");
   const router = useRouter();
   const id = router.query.pid;
-  console.log("id", id);
 
   const getproductId = async () => {
     try {

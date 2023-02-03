@@ -4,7 +4,7 @@ type GalleryProductType = {
 
 const Gallery = ({ images }: GalleryProductType) => {
   const featImage = images.image?.url;
-  console.log("222", images);
+
   return (
     <section className="product-gallery">
       <div className="product-gallery__thumbs">
